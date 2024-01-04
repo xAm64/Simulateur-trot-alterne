@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CourseAlterne {
@@ -21,6 +22,25 @@ public class CourseAlterne {
 	//lancé de dés
 	private static int lanceDices() {
 		return (int) (Math.random() * (6))+1;
+	}
+	//calcul de la distance
+	private static int distance(int distTtoal, int score) {
+		int distanceAdd = score * 23;
+		return distTtoal + distanceAdd;
+	}
+	//calcul de la vitesse
+	private static int speedCalcul(int currentSpeed, int score) {
+		//initialise les vitesses
+		int[][] speed = {
+				{0,1,1,1,2,2},//0
+				{0,0,1,1,1,2},//1
+				{0,0,1,1,1,2},//2
+				{-1,0,0,1,1,1},//3
+				{-1,0,0,0,1,1},//4
+				{-2,-1,0,0,0,1},//5
+				{-2,-1,0,0,0,999}//5
+		};
+		return speed[currentSpeed][score];
 	}
 
 }
