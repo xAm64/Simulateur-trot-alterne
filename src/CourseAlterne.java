@@ -7,6 +7,20 @@ public class CourseAlterne {
 		System.out.println("Exercice 3 : simulateur de course de trot attelé");
 		System.out.println("Combien de chevaux participent ? (entre 12 et 20)");
 		String numberHorsesString = scn.nextLine();
+		
+	}
+	//vérification de chiffres saisie
+	private static boolean verifInt(String x) {
+		Scanner scn = new Scanner(x);
+		boolean isCorrect = false;
+		if (scn.hasNextInt()) {
+			isCorrect = true;
+		}
+		return isCorrect;
+	}
+	//lancé de dés
+	private static int lanceDices() {
+		return (int) (Math.random() * (6))+1;
 	}
 
 }
