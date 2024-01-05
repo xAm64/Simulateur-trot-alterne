@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.print.CancelablePrintJob;
+
 public class CourseAlterne {
 
 	public static void main(String[] args) {
@@ -10,7 +12,9 @@ public class CourseAlterne {
 		String numberHorsesString = scn.nextLine();
 		//vérifier la saisie utilisateur
 		if (verifInt(numberHorsesString) && (Integer.parseInt(numberHorsesString) >= 12 && Integer.parseInt(numberHorsesString) <= 20)) {
+			//création des chevaux
 			int numberHorses = Integer.parseInt(numberHorsesString), horses[] = createHorses(numberHorses);
+			
 		//saisie non conforme
 		} else {
 			System.out.println("Merci de saisir une valeur en chiffre entre 12 et 20");
@@ -49,10 +53,11 @@ public class CourseAlterne {
 		return speed[currentSpeed][score];
 	}
 	//créer les chevaux
-	private static int[] createHorses(int numberHorses) {
-		int[] horses = new int[numberHorses];
+	private static int[][] createHorses(int numberHorses) {
+		int horses[][] = new int[numberHorses][];
 		for (int i=0;i<horses.length;i++) {
-			horses[i]= i+1;
+			horses[i][0]= i+1;
+			horses [i][1] = 0;
 		}
 		return horses;
 	}
