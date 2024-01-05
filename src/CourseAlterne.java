@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 import javax.print.CancelablePrintJob;
+import javax.security.auth.kerberos.KerberosKey;
+import javax.swing.JEditorPane;
 
 public class CourseAlterne {
 
@@ -28,6 +32,7 @@ public class CourseAlterne {
 				System.out.println("Au tour: "+tour+" voici les résultat:");
 				System.out.println(viewHorses(horses));
 			} while (distTotal < 2400);
+			System.out.println("Le résultat final est:\n"+finishPicture(horses));
 			//saisie non conforme
 		} else {
 			System.out.println("Merci de saisir une valeur en chiffre entre 12 et 20");
@@ -98,7 +103,45 @@ public class CourseAlterne {
 		}
 		return distance;
 	}
-	
+	//affiche le résultat final
+	private static String finishPicture(int[][] horses) {
+		int[][] orderVictory = new int[horses.length][3];
+		int[] max5 = new int[horses.length];
+		String viewVictory = "";
+		for (int i=0;i<max5.length;i++) {
+			max5[i] = horses[i][1]; 
+		}
+		//tri a bulle des 5 meilleurs qualifiés
+		for(int i=0;i<max5.length;i++) {
+			for(int j=1;j<(max5.length-i);j++) {
+				int tmp = max5[j-1];
+				max5[j-1]=max5[j];
+				max5[j]=tmp;
+			}
+		}
+		//parcourir la longueur du tableau pour incrémenter order victory du plus haut vers le plus bas.
+		for(int i=0;i<horses.length;i++) {
+			//je vais parcourir horses
+			for (int j=0;j<horses.length;j++) {
+				//je vais parcourir max 5
+				for(int k=max5.length;k>=0;k--) {
+					if(horses[j][1] == max5[k]) {
+						orderVictory[i][0] = horses[i][0];
+						orderVictory[i][1] = horses[i][1];
+						orderVictory[i][2] = horses[i][2];
+						orderVictory[i][3] = horses[i][3];
+					}
+				}
+			}
+		}
+		//Parcourir le tableau des victorieux en éliminant les dysqualifiés
+		for (int i=0; i<orderVictory.length;i++) {
+			if(orderVictory[1][3]!=0) {
+				viewVictory += "Le cheval numero: "+orderVictory[i][0]+" à parcouru "+orderVictory[i][1]+" mètres.";
+			}
+		}
+		return viewVictory;
+	}
 }
 /*
 Une course de trot attelé2 rassemble 12 à 20 chevaux, chacun tractant un sulky, et
