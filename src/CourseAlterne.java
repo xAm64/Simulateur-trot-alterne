@@ -72,7 +72,7 @@ public class CourseAlterne {
 	}
 	//créer les chevaux
 	private static int[][] createHorses(int numberHorses) {
-		int horses[][] = new int[numberHorses][3];
+		int horses[][] = new int[numberHorses][4];
 		for (int i=0;i<horses.length;i++) {
 			horses[i][0]= i+1;//numero
 			horses[i][1] = 0;//distance
@@ -105,7 +105,7 @@ public class CourseAlterne {
 	}
 	//affiche le résultat final
 	private static String finishPicture(int[][] horses) {
-		int[][] orderVictory = new int[horses.length][3];
+		int[][] orderVictory = new int[horses.length][4];
 		int[] max5 = new int[horses.length];
 		String viewVictory = "";
 		for (int i=0;i<max5.length;i++) {
@@ -121,22 +121,19 @@ public class CourseAlterne {
 		}
 		//parcourir la longueur du tableau pour incrémenter order victory du plus haut vers le plus bas.
 		for(int i=0;i<horses.length;i++) {
-			//je vais parcourir horses
-			for (int j=0;j<horses.length;j++) {
-				//je vais parcourir max 5
-				for(int k=max5.length;k>=0;k--) {
-					if(horses[j][1] == max5[k]) {
-						orderVictory[i][0] = horses[i][0];
-						orderVictory[i][1] = horses[i][1];
-						orderVictory[i][2] = horses[i][2];
-						orderVictory[i][3] = horses[i][3];
-					}
+			//je vais parcourir max 5
+			for(int j=max5.length;j>=0;j--) {
+				if(horses[i][1] == max5[j]) {
+					orderVictory[i][0] = horses[i][0];
+					orderVictory[i][1] = horses[i][1];
+					orderVictory[i][2] = horses[i][2];
+					orderVictory[i][3] = horses[i][3];
 				}
 			}
 		}
 		//Parcourir le tableau des victorieux en éliminant les dysqualifiés
 		for (int i=0; i<orderVictory.length;i++) {
-			if(orderVictory[1][3]!=0) {
+			if(orderVictory[i][3]!=0) {
 				viewVictory += "Le cheval numero: "+orderVictory[i][0]+" à parcouru "+orderVictory[i][1]+" mètres.";
 			}
 		}
