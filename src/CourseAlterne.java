@@ -13,18 +13,18 @@ public class CourseAlterne {
 		//vérifier la saisie utilisateur
 		if (verifInt(numberHorsesString) && (Integer.parseInt(numberHorsesString) >= 12 && Integer.parseInt(numberHorsesString) <= 20)) {
 			//création des chevaux
-			int numberHorses = Integer.parseInt(numberHorsesString), horses[][] = createHorses(numberHorses), distRest = 2400, tour = 0, score = 0;
+			int numberHorses = Integer.parseInt(numberHorsesString), horses[][] = createHorses(numberHorses), distTotal = 0, tour = 0, score = 0;
 			do {
 				for (int i=0; i<horses.length;i++) {
 					score = lanceDices();
 					horses[i][1] += distance(horses[i][1], score);
 					horses[i][2] += speedCalcul(horses[i][2], score);
 				}
-				distRest = triDist(horses);
+				distTotal = triDist(horses);
 				tour ++;
 				System.out.println("Au tour: "+tour+" voici les résultat:");
 				System.out.println(viewHorses(horses));
-			} while (distRest > 0);
+			} while (distTotal < 2400);
 			//saisie non conforme
 		} else {
 			System.out.println("Merci de saisir une valeur en chiffre entre 12 et 20");
