@@ -15,11 +15,17 @@ public class CourseAlterne {
 			//création des chevaux
 			int numberHorses = Integer.parseInt(numberHorsesString), horses[][] = createHorses(numberHorses), distRest = 2400, tour = 0, score = 0;
 			do {
-				score = lanceDices();
+				for (int i=0; i<horses.length;i++) {
+					score = lanceDices();
+					horses[i][1] += distance(horses[i][1], score);
+					horses[i][2] += speedCalcul(horses[i][2], score);
+				}
+				distRest = triDist(horses);
+				tour ++;
 				System.out.println("Au tour: "+tour+" voici les résultat:");
 				System.out.println(viewHorses(horses));
 			} while (distRest > 0);
-		//saisie non conforme
+			//saisie non conforme
 		} else {
 			System.out.println("Merci de saisir une valeur en chiffre entre 12 et 20");
 		}
@@ -58,10 +64,11 @@ public class CourseAlterne {
 	}
 	//créer les chevaux
 	private static int[][] createHorses(int numberHorses) {
-		int horses[][] = new int[numberHorses][2];
+		int horses[][] = new int[numberHorses][3];
 		for (int i=0;i<horses.length;i++) {
-			horses[i][0]= i+1;
-			horses [i][1] = 0;
+			horses[i][0]= i+1;//numero
+			horses[i][1] = 0;//distance
+			horses[i][2] = 0;//vitesse actuelle
 		}
 		return horses;
 	}
@@ -70,14 +77,23 @@ public class CourseAlterne {
 		String viewString = "";
 		for (int i=0;i<horses.length;i++) {
 			if (i < horses.length -1) {
-				viewString += "cheval numéro: "+horses[i][0]+" ,à parcourue: "+horses[1]+" mètres.\n";
+				viewString += "cheval numéro: "+Integer.toString(horses[i][0])+" ,à parcourue: "+Integer.toString(horses[i][1])+" mètres.\n";
 			} else {
-				viewString += "cheval numéro: "+horses[i][0]+" ,à parcourue: "+horses[1]+" mètres.";
+				viewString += "cheval numéro: "+Integer.toString(horses[i][0])+" ,à parcourue: "+Integer.toString(horses[i][1])+" mètres.";
 			}
 		}
 		return viewString;
 	}
-	//avancer les chevaux
+	//tri distance parcouru
+	private static int triDist(int[][] horses) {
+		int distance = horses[0][1];
+		for (int i=1;i<horses.length;i++) {
+			if (distance<horses[i][1]) {
+				distance = horses[i][1];
+			}
+		}
+		return distance;
+	}
 }
 /*
 Une course de trot attelé2 rassemble 12 à 20 chevaux, chacun tractant un sulky, et
@@ -92,4 +108,4 @@ stabilisation, diminution). La nouvelle vitesse détermine alors la distance don
 de jeu représente 10 secondes du déroulement de la course, mais le temps ne sera pas rendu dans le
 programme. C’est l’utilisateur qui fera avancer la course de tour en tour, à la suite d’un message du
 programme l’y invitant.
-*/
+ */
