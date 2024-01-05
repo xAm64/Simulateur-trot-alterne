@@ -8,7 +8,13 @@ public class CourseAlterne {
 		System.out.println("Exercice 3 : simulateur de course de trot attelé");
 		System.out.println("Combien de chevaux participent ? (entre 12 et 20)");
 		String numberHorsesString = scn.nextLine();
-		
+		//vérifier la saisie utilisateur
+		if (verifInt(numberHorsesString) && (Integer.parseInt(numberHorsesString) >= 12 && Integer.parseInt(numberHorsesString) <= 20)) {
+			int numberHorses = Integer.parseInt(numberHorsesString), horses[] = createHorses(numberHorses);
+		//saisie non conforme
+		} else {
+			System.out.println("Merci de saisir une valeur en chiffre entre 12 et 20");
+		}
 	}
 	//vérification de chiffres saisie
 	private static boolean verifInt(String x) {
@@ -38,11 +44,18 @@ public class CourseAlterne {
 				{-1,0,0,1,1,1},//3
 				{-1,0,0,0,1,1},//4
 				{-2,-1,0,0,0,1},//5
-				{-2,-1,0,0,0,999}//5
+				{-2,-1,0,0,0,1}//5
 		};
 		return speed[currentSpeed][score];
 	}
-
+	//créer les chevaux
+	private static int[] createHorses(int numberHorses) {
+		int[] horses = new int[numberHorses];
+		for (int i=0;i<horses.length;i++) {
+			horses[i]= i+1;
+		}
+		return horses;
+	}
 }
 /*
 Une course de trot attelé2 rassemble 12 à 20 chevaux, chacun tractant un sulky, et
