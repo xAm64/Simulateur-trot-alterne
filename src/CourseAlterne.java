@@ -19,6 +19,9 @@ public class CourseAlterne {
 					score = lanceDices();
 					horses[i][1] += distance(horses[i][1], score);
 					horses[i][2] += speedCalcul(horses[i][2], score);
+					if (horses[i][2] > 6) {
+						horses[i][3] = 0;
+					}
 				}
 				distTotal = triDist(horses);
 				tour ++;
@@ -69,6 +72,7 @@ public class CourseAlterne {
 			horses[i][0]= i+1;//numero
 			horses[i][1] = 0;//distance
 			horses[i][2] = 0;//vitesse actuelle
+			horses[i][3] = 1;//qualifié=1, disqualifié = 0;
 		}
 		return horses;
 	}
@@ -77,9 +81,9 @@ public class CourseAlterne {
 		String viewString = "";
 		for (int i=0;i<horses.length;i++) {
 			if (i < horses.length -1) {
-				viewString += "cheval numéro: "+Integer.toString(horses[i][0])+" ,à parcourue: "+Integer.toString(horses[i][1])+" mètres.\n";
+				viewString += "cheval numéro: "+Integer.toString(horses[i][0])+" ,à parcourue: "+Integer.toString(horses[i][1])+" mètres, sa vitesse actuelle est de: "+horses[i][2]+".\n";
 			} else {
-				viewString += "cheval numéro: "+Integer.toString(horses[i][0])+" ,à parcourue: "+Integer.toString(horses[i][1])+" mètres.";
+				viewString += "cheval numéro: "+Integer.toString(horses[i][0])+" ,à parcourue: "+Integer.toString(horses[i][1])+" mètres, sa vitesse actuelle est de: "+horses[i][2]+".";
 			}
 		}
 		return viewString;
@@ -94,6 +98,7 @@ public class CourseAlterne {
 		}
 		return distance;
 	}
+	
 }
 /*
 Une course de trot attelé2 rassemble 12 à 20 chevaux, chacun tractant un sulky, et
