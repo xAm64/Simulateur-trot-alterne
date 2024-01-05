@@ -13,8 +13,12 @@ public class CourseAlterne {
 		//vérifier la saisie utilisateur
 		if (verifInt(numberHorsesString) && (Integer.parseInt(numberHorsesString) >= 12 && Integer.parseInt(numberHorsesString) <= 20)) {
 			//création des chevaux
-			int numberHorses = Integer.parseInt(numberHorsesString), horses[] = createHorses(numberHorses);
-			
+			int numberHorses = Integer.parseInt(numberHorsesString), horses[][] = createHorses(numberHorses), distRest = 2400, tour = 0, score = 0;
+			do {
+				score = lanceDices();
+				System.out.println("Au tour: "+tour+" voici les résultat:");
+				System.out.println(viewHorses(horses));
+			} while (distRest > 0);
 		//saisie non conforme
 		} else {
 			System.out.println("Merci de saisir une valeur en chiffre entre 12 et 20");
@@ -48,19 +52,32 @@ public class CourseAlterne {
 				{-1,0,0,1,1,1},//3
 				{-1,0,0,0,1,1},//4
 				{-2,-1,0,0,0,1},//5
-				{-2,-1,0,0,0,1}//5
+				{-2,-1,0,0,0,1}//6
 		};
-		return speed[currentSpeed][score];
+		return speed[currentSpeed][score-1];
 	}
 	//créer les chevaux
 	private static int[][] createHorses(int numberHorses) {
-		int horses[][] = new int[numberHorses][];
+		int horses[][] = new int[numberHorses][2];
 		for (int i=0;i<horses.length;i++) {
 			horses[i][0]= i+1;
 			horses [i][1] = 0;
 		}
 		return horses;
 	}
+	//afficher les chevaux
+	private static String viewHorses(int[][] horses) {
+		String viewString = "";
+		for (int i=0;i<horses.length;i++) {
+			if (i < horses.length -1) {
+				viewString += "cheval numéro: "+horses[i][0]+" ,à parcourue: "+horses[1]+" mètres.\n";
+			} else {
+				viewString += "cheval numéro: "+horses[i][0]+" ,à parcourue: "+horses[1]+" mètres.";
+			}
+		}
+		return viewString;
+	}
+	//avancer les chevaux
 }
 /*
 Une course de trot attelé2 rassemble 12 à 20 chevaux, chacun tractant un sulky, et
